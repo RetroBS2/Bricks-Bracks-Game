@@ -7,23 +7,37 @@ class gerenciar{
   }
   
   perder(ball, jogador, quad){
-    if(ball.posicaoY > height){
+    for (this.bola of ball.bolas){
+    if(this.bola[1] > height){
+      var index = ball.bolas.indexOf(this.bola);
+      if (index > -1) {
+        ball.bolas.splice(index, 1);
+      }
+    }
+    }
+      if(ball.bolas.length == 0){
       this.vidas -= 1;
-      ball.posicaoY = jogador.y-ball.raio;
-      ball.posicaoX = jogador.x + jg.largura/2;
-      ball.velocidadeY = 0;
-      ball.velocidadeX = 0;
+      ball.bolas.push([jogador.x+jogador.largura/2, jogador.y-ball.raio, 0, 0, false])
       this.rodar = false;
       if(this.vidas == 0){
         quad.ApagarTodosOsBlocos();
       }
-    }
+      }
+    
+    
   }
     iniciar(ball, jogador){
-      let num = [3, 2, -2, 3]
-      ball.velocidadeX = random(num)
-      ball.velocidadeY = random(-5,-3)
-      this.rodar = true;
+      for(this.bola of ball.bolas){
+        if(!this.bola[4]){
+          let num = [3, 2, 1, -1, -2, -3]
+          this.bola[2] = random(num);
+          this.bola[3] = -3.5;
+          this.bola[4] = true;
+        }
+        if(!this.rodar){
+          this.rodar = true;
+        }
+      }
   }
   desenharPonto(){
     fill(0);
